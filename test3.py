@@ -20,7 +20,7 @@ import pandas as pd
 # 定义常量
 print('定义常量')
 IMAGE_PATH = "/root/linux_deeplearning/dataset_forming"
-DATA_PATH = "/root/linux_deeplearning/VM_dataset.csv"
+DATA_PATH = "/root/linux_deeplearning/SVM_dataset.csv"
 IMAGE_SIZE = (640, 480)
 BATCH_SIZE = 16
 
@@ -112,10 +112,8 @@ print('定义ResNet18模型')
 class ResNet18(nn.Module):
     def __init__(self, num_classes):
         super(ResNet18, self).__init__()
-        self.resnet = torch.hub.load('pytorch/vision:v0.9.0',
-                                     'resnet18',
-                                     weights=torchvision.models.ResNet18_Weights.IMAGENET1K_V1)
-        self.resnet.fc = nn.Linear(512, num_classes)
+        torchvision.models.resnet18(pretrained=True, progress=True)
+	self.resnet.fc = nn.Linear(512, num_classes)
     def forward(self, x):
         return self.resnet(x)
 
